@@ -35,6 +35,7 @@
 #include "buspirate.h"
 #include "butterfly.h"
 #include "ft245r.h"
+#include "hidkey.h"
 #include "jtagmkI.h"
 #include "jtagmkII.h"
 #include "par.h"
@@ -63,6 +64,7 @@ const PROGRAMMER_TYPE const programmers_types[] = {
         {"dragon_pdi", jtagmkII_dragon_pdi_initpgm, jtagmkII_dragon_pdi_desc},
         {"dragon_pp", stk500v2_dragon_pp_initpgm, stk500v2_dragon_pp_desc},
         {"ftdi_syncbb", ft245r_initpgm, ft245r_desc},
+        {"hidkey", hidkey_initpgm, hidkey_desc},
         {"jtagmki", jtagmkI_initpgm, jtagmkI_desc},
         {"jtagmkii", jtagmkII_initpgm, jtagmkII_desc},
         {"jtagmkii_avr32", jtagmkII_avr32_initpgm, jtagmkII_avr32_desc},

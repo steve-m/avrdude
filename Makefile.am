@@ -114,6 +114,8 @@ libavrdude_a_SOURCES = \
 	freebsd_ppi.h \
 	ft245r.c \
 	ft245r.h \
+	hidkey.c \
+	hidkey.h \
 	jtagmkI.c \
 	jtagmkI.h \
 	jtagmkI_private.h \

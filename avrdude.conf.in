@@ -626,6 +626,20 @@ programmer
   reset = 5;  # DTR
 ;
 
+# see http://wiki.steve-m.de/hidkey_gpio
+programmer
+  id    = "hidkey";
+  desc  = "HID keyboard bitbanging adapter";
+  type  = "hidkey";
+  connection_type = usb;
+  usbvid     = 0x045e; # Microsoft
+  usbpid     = 0x0730; # Digital Media Keyboard 3000
+  miso  = ~ 9;  # Right shift key (inverted)
+  sck   = 1;  # Num lock
+  mosi  = 2;  # Caps lock
+  reset = 3;  # Scroll lock
+;
+
 # see http://www.bitwizard.nl/wiki/index.php/FTDI_ATmega
 programmer
   id    = "bwmega";
