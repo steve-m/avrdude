@@ -168,7 +168,7 @@ void bitbang_delay(int us)
 /*
  * transmit and receive a byte of data to/from the AVR device
  */
-static unsigned char bitbang_txrx(PROGRAMMER * pgm, unsigned char byte)
+static unsigned char bitbang_txrx(PROGRAMMER * pgm, unsigned char byte, int do_read)
 {
   int i;
   unsigned char r, b, rbyte;
@@ -203,7 +203,8 @@ static unsigned char bitbang_txrx(PROGRAMMER * pgm, unsigned char byte)
      * read the result bit (it is either valid from a previous falling
      * edge or it is ignored in the current context)
      */
-    r = pgm->getpin(pgm, pgm->pinno[PIN_AVR_MISO]);
+    if (do_read)
+      r = pgm->getpin(pgm, pgm->pinno[PIN_AVR_MISO]);
 
     pgm->setpin(pgm, pgm->pinno[PIN_AVR_SCK], 0);
 
@@ -336,7 +337,10 @@ int bitbang_cmd(PROGRAMMER * pgm, unsigned char cmd[4],
   int i;
 
   for (i=0; i<4; i++) {
-    res[i] = bitbang_txrx(pgm, cmd[i]);
+    if (res != NULL)
+      res[i] = bitbang_txrx(pgm, cmd[i], 1);
+    else
+      bitbang_txrx(pgm, cmd[i], 0);
   }
 
     if(verbose >= 2)
@@ -405,7 +409,7 @@ int bitbang_spi(PROGRAMMER * pgm, unsigned char cmd[],
   pgm->setpin(pgm, pgm->pinno[PIN_LED_PGM], 0);
 
   for (i=0; i<count; i++) {
-    res[i] = bitbang_txrx(pgm, cmd[i]);
+    res[i] = bitbang_txrx(pgm, cmd[i], 1);
   }
 
   pgm->setpin(pgm, pgm->pinno[PIN_LED_PGM], 1);

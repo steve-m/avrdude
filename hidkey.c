@@ -67,6 +67,8 @@ static uint8_t input_state = 0;
 #define INPUT_INTERRUPT_DELAY	50000
 //#define USE_INTERRUPT		/* slower in my case */
 
+#define OUTPUT_DELAY		500
+
 /* HID protocol constants */
 #define HID_REPORT_GET		0x01
 #define HID_REPORT_SET		0x09
@@ -179,6 +181,7 @@ static int hidkey_setpin(PROGRAMMER * pgm, int pin, int value)
 	else
 		data |= (1 << (pin-1));
 
+	usleep(OUTPUT_DELAY);
 	r = libusb_control_transfer(devh, 0x21, HID_REPORT_SET,
 				    HID_OUTPUT, 0x00, &data, 1, 0);
 

@@ -157,7 +157,7 @@ int avr_read_byte_default(PROGRAMMER * pgm, AVRPART * p, AVRMEM * mem,
 
     avr_set_bits(lext, cmd);
     avr_set_addr(lext, cmd, addr);
-    pgm->cmd(pgm, cmd, res);
+    pgm->cmd(pgm, cmd, NULL); /* FIXME: hack! */
   }
 
   memset(cmd, 0, sizeof(cmd));
@@ -390,14 +390,14 @@ int avr_write_page(PROGRAMMER * pgm, AVRPART * p, AVRMEM * mem,
 
     avr_set_bits(lext, cmd);
     avr_set_addr(lext, cmd, addr);
-    pgm->cmd(pgm, cmd, res);
+    pgm->cmd(pgm, cmd, NULL); /* FIXME: hack! */
   }
 
   memset(cmd, 0, sizeof(cmd));
 
   avr_set_bits(wp, cmd);
   avr_set_addr(wp, cmd, addr);
-  pgm->cmd(pgm, cmd, res);
+  pgm->cmd(pgm, cmd, NULL); /* FIXME: hack! */
 
   /*
    * since we don't know what voltage the target AVR is powered by, be
@@ -550,7 +550,7 @@ int avr_write_byte_default(PROGRAMMER * pgm, AVRPART * p, AVRMEM * mem,
   avr_set_bits(writeop, cmd);
   avr_set_addr(writeop, cmd, caddr);
   avr_set_input(writeop, cmd, data);
-  pgm->cmd(pgm, cmd, res);
+  pgm->cmd(pgm, cmd, NULL); /* FIXME: hack! */
 
   if (mem->paged) {
     /*
